@@ -3,42 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Ecommerce</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"></script>
+    <title>Tokopedia Clone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9fafb;
+            color: #333;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #42b549;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        header nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        header nav select {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #42b549;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        header nav a:hover {
+            color: #d4edda;
+        }
+        .search-bar {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .search-bar input {
+            width: 60%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .products {
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .products h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #42b549;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+        .product {
+            width: calc(25% - 25px);
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+        .product h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .product p {
+            font-size: 1em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .product a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #42b549;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .product a:hover {
+            background-color: #36a243;
+        }
+        footer {
+            background-color: #42b549;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Mini Ponsel</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <form id="formItem" class="form-inline mr-3">
-                            <input class="form-control mr-sm-2" type="search" id="keyword" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </li>
-                    <li class="nav-item">
-                        <button class="btn btn-primary" id="cart">
-                            <i class="fas fa-shopping-cart"></i> Keranjang (0)
-                        </button>
-                        <button class="btn btn-success ml-2" id="checkout" disabled>Checkout</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
-
-    <div class="container mt-4">
-        <div class="row" id="listBarang"></div>
+    <header>
+        <div class="logo">DUDEL CELL</div>
+        <nav>
+            <select id="category-filter">
+                <option value="">Kategori</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Xiaomi">Xiaomi</option>
+                <option value="Oppo">Oppo</option>
+                <option value="Vivo">Vivo</option>
+                <option value="Realme">Realme</option>
+                <option value="Huawei">Huawei</option>
+            </select>
+            <a href="#">Promo</a>
+            <a href="#">Login</a>
+            <a href="#">Daftar</a>
+        </nav>
+    </header>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Cari di Tokopedia..." onkeyup="searchProducts()">
     </div>
+    <section class="products">
+        <h2>Produk HP Terpopuler</h2>
+        <div id="product-list" class="product-list"></div>
+    </section>
+    <footer>
+        <p>&copy; 2025 DUDEL CELL. Kelompok Dudel(Joy Denriaman Purba, Diffa Ismi, Anita Karolina, Adelia Ginting, Jesen Lubis, Aprilta Giting) .</p>
+    </footer>
+    <script>
+        const products = [
+            { id: "SamsungS22", name: "Samsung S22 Ultra", image: "sam.jpg", price: "Rp 15.000.000", brand: "Samsung" },
+            { id: "SamsungS24", name: "Samsung S24 Ultra", image: "S24.jpg", price: "Rp 18.000.000", brand: "Samsung" },
+            { id: "XiaomiMi13", name: "Xiaomi Mi 13T", image: "13T.jpg", price: "Rp 6.500.000", brand: "Xiaomi" },
+            { id: "XiaomiRedmiNote12", name: "Xiaomi Redmi Note 12", image: "1200.webp", price: "Rp 3.500.000", brand: "Xiaomi" },
+            { id: "OppoFindX5Pro", name: "Oppo Find X5 Pro", image: "X5.webp", price: "Rp 15.500.000", brand: "Oppo" },
+            { id: "OppoReno8", name: "Oppo Reno 8", image: "RENO8.png", price: "Rp 5.900.000", brand: "Oppo" },
+            { id: "VivoV23", name: "Vivo V23", image: "v23.webp", price: "Rp 6.500.000", brand: "Vivo" },
+            { id: "VivoY55", name: "Vivo Y55", image: "y55.jpg", price: "Rp 3.200.000", brand: "Vivo" },
+            { id: "RealmeGT2Pro", name: "Realme GT 2 Pro", image: "gt.jpg", price: "Rp 9.500.000", brand: "Realme" },
+            { id: "RealmeNarzo50", name: "Realme Narzo 50", image: "narzo.jpg", price: "Rp 2.700.000", brand: "Realme" },
+            { id: "HuaweiP50Pro", name: "Huawei P50 Pro", image: "p50.png", price: "Rp 14.000.000", brand: "Huawei" },
+            { id: "HuaweiMate50", name: "Huawei Mate 50", image: "50.jpg", price: "Rp 16.000.000", brand: "Huawei" }
+        ];
 
-    <script src="js/script.js"></script>
+        const productList = document.getElementById("product-list");
+        const categoryFilter = document.getElementById("category-filter");
+
+        function displayProducts(filteredProducts) {
+            productList.innerHTML = "";
+            filteredProducts.forEach(product => {
+                const productItem = document.createElement("div");
+                productItem.className = "product";
+                productItem.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.price}</p>
+                    <a href="pembelian.html?product=${product.id}" target="_self">Beli Sekarang</a>
+                `;
+                productList.appendChild(productItem);
+            });
+        }
+
+        categoryFilter.addEventListener("change", () => {
+            const selectedCategory = categoryFilter.value;
+            if (selectedCategory === "") {
+                displayProducts(products);
+            } else {
+                const filteredProducts = products.filter(product => product.brand === selectedCategory);
+                displayProducts(filteredProducts);
+            }
+        });
+
+        // Tampilkan semua produk saat halaman dimuat
+        displayProducts(products);
+    </script>
 </body>
 </html>
